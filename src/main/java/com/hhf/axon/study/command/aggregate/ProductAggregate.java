@@ -33,7 +33,11 @@ public class ProductAggregate {
     private long unitPrice;
 
     public ProductAggregate(){
-        apply(CreateProductEvent.builder().productId(this.productId).listName(listName).totalStock(totalStock).unitPrice(unitPrice).build());
+
+    }
+
+    public ProductAggregate(String productId, String listName, long totalStock, long unitPrice) {
+        apply(CreateProductEvent.builder().productId(productId).listName(listName).totalStock(totalStock).unitPrice(unitPrice).build());
     }
 
     @EventHandler

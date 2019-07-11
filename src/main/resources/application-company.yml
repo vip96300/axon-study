@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.0.135:3306/axon_study?useSSL=false&useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 1Mtg_izQtZow
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+      database: mysql
+  data:
+    mongodb:
+      host: 192.168.0.135
+      port: 27017
+      database: admin
+      username: root
+      password: xcwl2018

@@ -23,12 +23,8 @@ public class ProductHandler {
     @CommandHandler
     public void createProduct(CreateProductCommand command){
         try {
-            productAggregateRepository.newInstance(()->ProductAggregate.builder()
-                    .productId(UUID.randomUUID().toString())
-                    .listName(command.getListName())
-                    .totalStock(command.getTotalStock())
-                    .unitPrice(command.getUnitPrice())
-                    .build()
+            productAggregateRepository.newInstance(()->
+                    new ProductAggregate(UUID.randomUUID().toString(),command.getListName(),command.getTotalStock(),command.getUnitPrice())
             );
         } catch (Exception e) {
             e.printStackTrace();

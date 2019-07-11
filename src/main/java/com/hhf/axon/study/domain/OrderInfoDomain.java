@@ -36,6 +36,7 @@ public class OrderInfoDomain {
                 .build();
         orderInfoRepository.save(orderInfoEntity);
         List<OrderProductEntity> orderProductEntityList=event.getProducts().stream().map(p-> OrderProductEntity.builder()
+                .orderId(event.getOrderId())
                 .productId(p.getProductId())
                 .buyCount(p.getBuyCount())
                 .build()
