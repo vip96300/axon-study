@@ -32,7 +32,6 @@ public class OrderAggregate {
     private List<OrderProduct> products;
 
     public OrderAggregate(){
-        this.orderId= UUID.randomUUID().toString();
         apply(CreateOrderEvent.builder().orderId(this.orderId).userId(this.userId)
                 .products(products)
                 .build());
@@ -42,6 +41,7 @@ public class OrderAggregate {
     public void on(CreateOrderEvent event){
         this.orderId=event.getOrderId();
         this.userId=event.getUserId();
+        this.products=event.getProducts();
         mathTotalPrice();
     }
 

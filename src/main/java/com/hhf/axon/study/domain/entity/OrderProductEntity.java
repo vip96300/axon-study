@@ -15,7 +15,8 @@ public class OrderProductEntity {
 
     @Id
     @GeneratedValue
-    private long id;
+    private String id;
+    private String orderId;
     private String productId;
     private int buyCount;
 }

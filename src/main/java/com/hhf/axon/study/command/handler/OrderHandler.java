@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author huang hong fei
@@ -34,7 +35,10 @@ public class OrderHandler {
             productList.add(p);
         });
         try {
-            orderAggregateRepository.newInstance(()->OrderAggregate.builder().userId(command.getUserId()).products(productList).build());
+            orderAggregateRepository.newInstance(()->OrderAggregate.builder()
+                    .orderId(UUID.randomUUID().toString())
+                    .userId(command.getUserId())
+                    .products(productList).build());
         } catch (Exception e) {
             e.printStackTrace();
         }

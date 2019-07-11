@@ -29,7 +29,7 @@ public class OrderConfig {
     }
 
     @Bean
-    public AggregateFactory<OrderAggregate> orderAggregateAggregateFactory(){
+    public AggregateFactory<OrderAggregate> orderAggregateFactory(){
         SpringPrototypeAggregateFactory<OrderAggregate> aggregateFactory = new SpringPrototypeAggregateFactory<>();
         aggregateFactory.setPrototypeBeanName("orderAggregate");
         return aggregateFactory;
@@ -37,8 +37,8 @@ public class OrderConfig {
 
     @Bean
     public Repository<OrderAggregate> orderAggregateRepository(){
-        EventSourcingRepository<OrderAggregate> repository = new EventSourcingRepository<OrderAggregate>(
-                orderAggregateAggregateFactory(),
+        EventSourcingRepository<OrderAggregate> repository = new EventSourcingRepository<>(
+                orderAggregateFactory(),
                 eventStore
         );
         return repository;

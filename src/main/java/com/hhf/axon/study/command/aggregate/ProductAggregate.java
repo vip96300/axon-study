@@ -2,6 +2,8 @@ package com.hhf.axon.study.command.aggregate;
 
 import com.hhf.axon.study.command.CreateProductCommand;
 import com.hhf.axon.study.domain.event.CreateProductEvent;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
@@ -19,7 +21,7 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
  * @date 2019/7/11
  * @description
  **/
-@Data @Aggregate
+@Data @Aggregate @Builder
 public class ProductAggregate {
 
     private static final Logger log= LoggerFactory.getLogger(ProductAggregate.class);
@@ -31,18 +33,12 @@ public class ProductAggregate {
     private long unitPrice;
 
     public ProductAggregate(){
-
-    }
-
-    @CommandHandler
-    public ProductAggregate(CreateProductCommand command){
-        apply(CreateProductEvent.builder().productId(this.productId).listName(command.getListName()).totalStock(command.getTotalStock()).unitPrice(command.getUnitPrice()).build());
+        apply(CreateProductEvent.builder().productId(this.productId).listName(listName).totalStock(totalStock).unitPrice(unitPrice).build());
     }
 
     @EventHandler
     public void on(CreateProductEvent event){
-        this.productId=UUID.randomUUID().toString();
-        log.info("create product event,productId:{}",productId);
+        this.productId=event.getProductId();
         this.listName=event.getListName();
         this.totalStock=event.getTotalStock();
         this.unitPrice=event.getUnitPrice();

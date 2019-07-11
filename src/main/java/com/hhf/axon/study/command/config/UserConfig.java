@@ -24,12 +24,12 @@ public class UserConfig {
 
     @Bean
     @Scope("prototype")
-    public UserAggregate productAggregate(){
+    public UserAggregate userAggregate(){
         return new UserAggregate();
     }
 
     @Bean
-    public AggregateFactory<UserAggregate> userAggregateAggregateFactory(){
+    public AggregateFactory<UserAggregate> userAggregateFactory(){
         SpringPrototypeAggregateFactory<UserAggregate> aggregateFactory = new SpringPrototypeAggregateFactory<>();
         aggregateFactory.setPrototypeBeanName("userAggregate");
         return aggregateFactory;
@@ -37,8 +37,8 @@ public class UserConfig {
 
     @Bean
     public Repository<UserAggregate> userAggregateRepository(){
-        EventSourcingRepository<UserAggregate> repository = new EventSourcingRepository<UserAggregate>(
-                userAggregateAggregateFactory(),
+        EventSourcingRepository<UserAggregate> repository = new EventSourcingRepository<>(
+                userAggregateFactory(),
                 eventStore
         );
         return repository;

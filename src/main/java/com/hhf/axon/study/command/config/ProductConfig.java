@@ -29,7 +29,7 @@ public class ProductConfig {
     }
 
     @Bean
-    public AggregateFactory<ProductAggregate> productAggregateAggregateFactory(){
+    public AggregateFactory<ProductAggregate> productAggregateFactory(){
         SpringPrototypeAggregateFactory<ProductAggregate> aggregateFactory = new SpringPrototypeAggregateFactory<>();
         aggregateFactory.setPrototypeBeanName("productAggregate");
         return aggregateFactory;
@@ -37,8 +37,8 @@ public class ProductConfig {
 
     @Bean
     public Repository<ProductAggregate> productAggregateRepository(){
-        EventSourcingRepository<ProductAggregate> repository = new EventSourcingRepository<ProductAggregate>(
-                productAggregateAggregateFactory(),
+        EventSourcingRepository<ProductAggregate> repository = new EventSourcingRepository<>(
+                productAggregateFactory(),
                 eventStore
         );
         return repository;

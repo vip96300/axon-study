@@ -4,6 +4,8 @@ import com.hhf.axon.study.domain.event.CreateUserEvent;
 import com.hhf.axon.study.domain.event.UpdatePasswordEvent;
 import com.hhf.axon.study.command.CreateUserCommand;
 import com.hhf.axon.study.command.UpdatePasswordCommand;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
@@ -19,7 +21,7 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
  * @date 2019/7/10
  * @description
  **/
-@Data
+@Data @Builder @AllArgsConstructor
 @Aggregate
 public class UserAggregate {
 
@@ -29,12 +31,7 @@ public class UserAggregate {
     private String password;
 
     public UserAggregate(){
-
-    }
-
-    @CommandHandler
-    public UserAggregate(CreateUserCommand command){
-        apply(CreateUserEvent.builder().userId(this.userId).userName(command.getUserName()).password(command.getPassword()).build());
+        apply(CreateUserEvent.builder().userId(this.userId).userName(userName).password(password).build());
     }
 
     @CommandHandler
@@ -44,7 +41,7 @@ public class UserAggregate {
 
     @EventHandler
     public void on(CreateUserEvent event){
-        this.userId= UUID.randomUUID().toString();
+        this.userId= event.getUserId();
         this.userName=event.getUserName();
         this.password=event.getPassword();
     }
