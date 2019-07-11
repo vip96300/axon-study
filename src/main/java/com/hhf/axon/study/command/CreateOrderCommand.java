@@ -14,7 +14,6 @@ import java.util.List;
 @Data @Builder
 public class CreateOrderCommand {
 
-    private String orderId;
     private String userId;
     private List<OrderAggregate.OrderProduct> productList;
 }

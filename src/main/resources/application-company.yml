@@ -4,11 +4,11 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 1Mtg_izQtZow
-    jpa:
-      hibernate:
-        ddl-auto: update
-      show-sql: true
-      database: mysql
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
   data:
     mongodb:
       host: 192.168.0.135

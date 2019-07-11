@@ -1,14 +1,16 @@
 package com.hhf.axon.study.domain.event;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author huang hong fei
  * @date 2019/7/11
  * @description
  **/
-@Data @Builder
+@Data @Builder @NoArgsConstructor @AllArgsConstructor
 public class CreateProductEvent {
 
     private String productId;

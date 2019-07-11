@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +37,7 @@ public class OrderInfoDomain {
                 .build();
         orderInfoRepository.save(orderInfoEntity);
         List<OrderProductEntity> orderProductEntityList=event.getProducts().stream().map(p-> OrderProductEntity.builder()
+                .id(UUID.randomUUID().toString())
                 .orderId(event.getOrderId())
                 .productId(p.getProductId())
                 .buyCount(p.getBuyCount())

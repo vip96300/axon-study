@@ -23,11 +23,9 @@ public class UserHandler {
     @CommandHandler
     public void createUser(CreateUserCommand command){
         try {
-            userAggregateRepository.newInstance(()-> UserAggregate.builder()
-                    .userId(UUID.randomUUID().toString())
-                    .userName(command.getUserName())
-                    .password(command.getPassword())
-                    .build());
+            userAggregateRepository.newInstance(()->
+                    new UserAggregate(UUID.randomUUID().toString(),command.getUserName(),command.getPassword())
+                    );
         } catch (Exception e) {
             e.printStackTrace();
         }

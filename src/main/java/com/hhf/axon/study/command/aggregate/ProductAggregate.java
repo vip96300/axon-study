@@ -21,7 +21,7 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
  * @date 2019/7/11
  * @description
  **/
-@Data @Aggregate @Builder
+@Data @Aggregate
 public class ProductAggregate {
 
     private static final Logger log= LoggerFactory.getLogger(ProductAggregate.class);

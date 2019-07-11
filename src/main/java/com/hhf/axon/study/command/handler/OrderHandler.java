@@ -6,6 +6,7 @@ import com.hhf.axon.study.command.aggregate.ProductAggregate;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.Aggregate;
 import org.axonframework.commandhandling.model.Repository;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,10 +36,9 @@ public class OrderHandler {
             productList.add(p);
         });
         try {
-            orderAggregateRepository.newInstance(()->OrderAggregate.builder()
-                    .orderId(UUID.randomUUID().toString())
-                    .userId(command.getUserId())
-                    .products(productList).build());
+            orderAggregateRepository.newInstance(()->
+                    new OrderAggregate(UUID.randomUUID().toString(),command.getUserId(),command.getProductList())
+                    );
         } catch (Exception e) {
             e.printStackTrace();
         }

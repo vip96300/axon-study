@@ -5,6 +5,7 @@ import com.hhf.axon.study.domain.event.CreateOrderEvent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateMember;
@@ -21,7 +22,7 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
  * @date 2019/7/11
  * @description
  **/
-@Data @Aggregate @Builder @AllArgsConstructor
+@Data @Aggregate
 public class OrderAggregate {
 
     @AggregateIdentifier
@@ -32,7 +33,10 @@ public class OrderAggregate {
     private List<OrderProduct> products;
 
     public OrderAggregate(){
-        apply(CreateOrderEvent.builder().orderId(this.orderId).userId(this.userId)
+    }
+
+    public OrderAggregate(String orderId, String userId,List<OrderProduct> products) {
+        apply(CreateOrderEvent.builder().orderId(orderId).userId(userId)
                 .products(products)
                 .build());
     }
@@ -49,8 +53,8 @@ public class OrderAggregate {
         this.totalPrice=products.stream().mapToLong(p->p.getBuyCount()*p.getUnitPrice()).sum();
     }
 
-    @Data
-    public class OrderProduct{
+    @Data @NoArgsConstructor
+    public static class OrderProduct{
         private String productId;
         private int buyCount;
         private long unitPrice;

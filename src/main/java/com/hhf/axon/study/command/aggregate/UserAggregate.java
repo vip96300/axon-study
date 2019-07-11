@@ -21,8 +21,7 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
  * @date 2019/7/10
  * @description
  **/
-@Data @Builder @AllArgsConstructor
-@Aggregate
+@Data @Aggregate
 public class UserAggregate {
 
     @AggregateIdentifier
@@ -31,7 +30,11 @@ public class UserAggregate {
     private String password;
 
     public UserAggregate(){
-        apply(CreateUserEvent.builder().userId(this.userId).userName(userName).password(password).build());
+
+    }
+
+    public UserAggregate(String userId, String userName, String password) {
+        apply(CreateUserEvent.builder().userId(userId).userName(userName).password(password).build());
     }
 
     @CommandHandler
