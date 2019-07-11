@@ -3,7 +3,6 @@ package com.hhf.axon.study.command.handler;
 import com.hhf.axon.study.command.CreateOrderCommand;
 import com.hhf.axon.study.command.aggregate.OrderAggregate;
 import com.hhf.axon.study.command.aggregate.ProductAggregate;
-import com.hhf.axon.study.domain.event.CreateOrderEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.Aggregate;
 import org.axonframework.commandhandling.model.Repository;

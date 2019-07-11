@@ -15,7 +15,8 @@ spring:
     database: mysql
   data:
     mongodb:
-      uri: mongodb://192.168.0.135:27017
+      host: 192.168.0.135
+      port: 27017
       database: admin
       username: root
       password: xcwl2018

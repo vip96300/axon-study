@@ -25,8 +25,10 @@ import java.util.Arrays;
 @Configuration
 public class RepositoryConfig {
 
-    @Value("${spring.data.mongodb.uri}")
-    private String mongodbUrl;
+    @Value("${spring.data.mongodb.host}")
+    private String mongodbHost;
+    @Value("${spring.data.mongodb.port}")
+    private int mongodbPort;
     @Value("${spring.data.mongodb.database}")
     private String mongodbName;
     @Value("${spring.data.mongodb.username}")
@@ -55,7 +57,7 @@ public class RepositoryConfig {
     @Bean
     public MongoClient mongoClient(){
         MongoFactory mongoFactory = new MongoFactory();
-        mongoFactory.setMongoAddresses(Arrays.asList(new ServerAddress(mongodbUrl)));
+        mongoFactory.setMongoAddresses(Arrays.asList(new ServerAddress(mongodbHost,mongodbPort)));
         return mongoFactory.createMongo();
     }
 }
