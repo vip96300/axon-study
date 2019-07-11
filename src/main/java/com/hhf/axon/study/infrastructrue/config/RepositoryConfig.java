@@ -1,6 +1,14 @@
 package com.hhf.axon.study.infrastructrue.config;
 
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.ServerAddress;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
+import org.axonframework.mongo.eventsourcing.eventstore.DefaultMongoTemplate;
+import org.axonframework.mongo.eventsourcing.eventstore.MongoEventStorageEngine;
+import org.axonframework.mongo.eventsourcing.eventstore.MongoFactory;
+import org.axonframework.mongo.eventsourcing.eventstore.MongoTemplate;
+import org.axonframework.mongo.eventsourcing.eventstore.documentperevent.DocumentPerEventStorageStrategy;
 import org.axonframework.serialization.Serializer;
 import org.axonframework.serialization.json.JacksonSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,14 +48,14 @@ public class RepositoryConfig {
 
     @Bean(name = "axonMongoTemplate")
     public MongoTemplate axonMongoTemplate() {
-        MongoTemplate template = new DefaultMongoTemplate(mongoClient(), mongoDbName, eventsCollectionName, snapshotCollectionName);
+        MongoTemplate template = new DefaultMongoTemplate(mongoClient(), mongodbName, domainEventsCollectionName, snapshotEventsCollectionName);
         return template;
     }
 
     @Bean
     public MongoClient mongoClient(){
         MongoFactory mongoFactory = new MongoFactory();
-        mongoFactory.setMongoAddresses(Arrays.asList(new ServerAddress(mongoUrl)));
+        mongoFactory.setMongoAddresses(Arrays.asList(new ServerAddress(mongodbUrl)));
         return mongoFactory.createMongo();
     }
 }

@@ -4,6 +4,7 @@ import com.hhf.axon.study.domain.entity.UserInfoEntity;
 import com.hhf.axon.study.domain.event.CreateUserEvent;
 import com.hhf.axon.study.domain.event.UpdatePasswordEvent;
 import com.hhf.axon.study.domain.repository.UserInfoRepository;
+import org.axonframework.eventhandling.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,13 @@ public class UserInfoDomain {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
+    @EventHandler
     @Transactional(rollbackFor = Exception.class)
     public void createUserHandler(CreateUserEvent event){
         userInfoRepository.save(UserInfoEntity.builder().userId(event.getUserId()).userName(event.getUserName()).password(event.getPassword()).build());
     }
 
+    @EventHandler
     @Transactional(rollbackFor = Exception.class)
     public void updatePasswordHandler(UpdatePasswordEvent event){
         UserInfoEntity userInfoEntity=userInfoRepository.findById(event.getUserId()).orElse(null);
