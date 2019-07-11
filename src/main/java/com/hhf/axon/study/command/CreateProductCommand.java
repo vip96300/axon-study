@@ -11,7 +11,6 @@ import lombok.Data;
 @Data @Builder
 public class CreateProductCommand {
 
-    private String productId;
     private String listName;
     private long totalStock;
     private long unitPrice;

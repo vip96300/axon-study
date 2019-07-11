@@ -8,6 +8,8 @@ import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import java.util.UUID;
+
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
 /**
@@ -16,7 +18,7 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
  * @description
  **/
 @Data @Aggregate
-public class ProductRoot {
+public class ProductAggregate {
 
     @AggregateIdentifier
     private String productId;
@@ -24,18 +26,18 @@ public class ProductRoot {
     private long totalStock;
     private long unitPrice;
 
-    public ProductRoot(){
+    public ProductAggregate(){
 
     }
 
     @CommandHandler
-    public ProductRoot(CreateProductCommand command){
-        apply(CreateProductEvent.builder().productId(command.getProductId()).listName(command.getListName()).totalStock(command.getTotalStock()).unitPrice(command.getUnitPrice()));
+    public ProductAggregate(CreateProductCommand command){
+        apply(CreateProductEvent.builder().productId(this.productId).listName(command.getListName()).totalStock(command.getTotalStock()).unitPrice(command.getUnitPrice()).build());
     }
 
     @EventHandler
     public void on(CreateProductEvent event){
-        this.productId=event.getProductId();
+        this.productId=UUID.randomUUID().toString();
         this.listName=event.getListName();
         this.totalStock=event.getTotalStock();
         this.unitPrice=event.getUnitPrice();

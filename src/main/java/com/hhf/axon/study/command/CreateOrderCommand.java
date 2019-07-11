@@ -1,5 +1,6 @@
 package com.hhf.axon.study.command;
 
+import com.hhf.axon.study.command.aggregate.OrderAggregate;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,11 +16,5 @@ public class CreateOrderCommand {
 
     private String orderId;
     private String userId;
-    private List<OrderProduct> productList;
-
-    @Data
-    public class OrderProduct{
-        private String productId;
-        private int buyCount;
-    }
+    private List<OrderAggregate.OrderProduct> productList;
 }

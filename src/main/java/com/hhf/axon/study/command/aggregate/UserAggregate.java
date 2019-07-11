@@ -21,19 +21,19 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
  **/
 @Data
 @Aggregate
-public class UserRoot {
+public class UserAggregate {
 
     @AggregateIdentifier
     private String userId;
     private String userName;
     private String password;
 
-    public UserRoot(){
+    public UserAggregate(){
 
     }
 
     @CommandHandler
-    public UserRoot(CreateUserCommand command){
+    public UserAggregate(CreateUserCommand command){
         apply(CreateUserEvent.builder().userId(this.userId).userName(command.getUserName()).password(command.getPassword()).build());
     }
 

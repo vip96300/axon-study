@@ -1,6 +1,7 @@
 package com.hhf.axon.study.domain.event;
 
 import com.hhf.axon.study.command.CreateOrderCommand;
+import com.hhf.axon.study.command.aggregate.OrderAggregate;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,5 +18,5 @@ public class CreateOrderEvent {
 
     private String orderId;
     private String userId;
-    private List<CreateOrderCommand.OrderProduct> products;
+    private List<OrderAggregate.OrderProduct> products;
 }
