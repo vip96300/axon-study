@@ -1,4 +1,4 @@
-package com.hhf.axon.study.domain.event;
+package com.hhf.axon.study.command.event;
 
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +9,8 @@ import lombok.Data;
  * @description
  **/
 @Data @Builder
-public class CreateUserEvent {
+public class UpdatePasswordEvent {
 
     private String userId;
-    private String userName;
     private String password;
 }

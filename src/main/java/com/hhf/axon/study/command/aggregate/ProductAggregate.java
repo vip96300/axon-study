@@ -1,9 +1,10 @@
 package com.hhf.axon.study.command.aggregate;
 
-import com.hhf.axon.study.command.CreateProductCommand;
-import com.hhf.axon.study.domain.event.CreateProductEvent;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.hhf.axon.study.command.LockedProductCommand;
+import com.hhf.axon.study.command.event.CreateProductEvent;
+import com.hhf.axon.study.command.event.LockedProductEvent;
+import com.hhf.axon.study.command.event.NotEnoughProductEvent;
+import com.hhf.axon.study.command.event.UnlockProductEvent;
 import lombok.Data;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
@@ -11,8 +12,6 @@ import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.UUID;
 
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
@@ -46,5 +45,23 @@ public class ProductAggregate {
         this.listName=event.getListName();
         this.totalStock=event.getTotalStock();
         this.unitPrice=event.getUnitPrice();
+    }
+
+    public void locked(String orderId,int number){
+        if(totalStock>=number){
+            apply(LockedProductEvent.builder().orderId(orderId).productId(productId).number(number).build());
+        }else{
+            apply(NotEnoughProductEvent.builder().orderId(orderId).productId(productId).build());
+        }
+    }
+
+    @EventHandler
+    public void on(LockedProductEvent event){
+        this.totalStock-=event.getNumber();
+    }
+
+    @EventHandler
+    public void on(UnlockProductEvent event){
+        this.totalStock+=event.getNumber();
     }
 }

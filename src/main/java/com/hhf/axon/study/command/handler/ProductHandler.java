@@ -1,8 +1,11 @@
 package com.hhf.axon.study.command.handler;
 
 import com.hhf.axon.study.command.CreateProductCommand;
+import com.hhf.axon.study.command.LockedProductCommand;
 import com.hhf.axon.study.command.aggregate.ProductAggregate;
+import com.hhf.axon.study.command.event.LockedProductEvent;
 import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.commandhandling.model.Aggregate;
 import org.axonframework.commandhandling.model.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +24,7 @@ public class ProductHandler {
     private Repository<ProductAggregate> productAggregateRepository;
 
     @CommandHandler
-    public void createProduct(CreateProductCommand command){
+    public void on(CreateProductCommand command){
         try {
             productAggregateRepository.newInstance(()->
                     new ProductAggregate(UUID.randomUUID().toString(),command.getListName(),command.getTotalStock(),command.getUnitPrice())
@@ -29,5 +32,11 @@ public class ProductHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @CommandHandler
+    public void on(LockedProductCommand command){
+        Aggregate<ProductAggregate> productAggregate=productAggregateRepository.load(command.getProductId());
+        productAggregate.execute((root)->root.locked(command.getOrderId(),command.getNumber()));
     }
 }

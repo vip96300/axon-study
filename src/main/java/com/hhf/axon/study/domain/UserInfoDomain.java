@@ -1,8 +1,8 @@
 package com.hhf.axon.study.domain;
 
 import com.hhf.axon.study.domain.entity.UserInfoEntity;
-import com.hhf.axon.study.domain.event.CreateUserEvent;
-import com.hhf.axon.study.domain.event.UpdatePasswordEvent;
+import com.hhf.axon.study.command.event.CreateUserEvent;
+import com.hhf.axon.study.command.event.UpdatePasswordEvent;
 import com.hhf.axon.study.domain.repository.UserInfoRepository;
 import org.axonframework.eventhandling.EventHandler;
 import org.slf4j.Logger;

@@ -1,7 +1,7 @@
 package com.hhf.axon.study.domain;
 
 import com.hhf.axon.study.domain.entity.ProductInfoEntity;
-import com.hhf.axon.study.domain.event.CreateProductEvent;
+import com.hhf.axon.study.command.event.CreateProductEvent;
 import com.hhf.axon.study.domain.repository.ProductInfoRepository;
 import org.axonframework.eventhandling.EventHandler;
 import org.slf4j.Logger;

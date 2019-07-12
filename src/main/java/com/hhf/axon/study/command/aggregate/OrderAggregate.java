@@ -1,19 +1,15 @@
 package com.hhf.axon.study.command.aggregate;
 
-import com.hhf.axon.study.command.CreateOrderCommand;
-import com.hhf.axon.study.domain.event.CreateOrderEvent;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.hhf.axon.study.command.event.CreateOrderEvent;
+import com.hhf.axon.study.infrastructrue.enums.OrderInfoEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateMember;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
@@ -31,6 +27,7 @@ public class OrderAggregate {
     private long totalPrice;
     @AggregateMember
     private List<OrderProduct> products;
+    private OrderInfoEnum.Status status;
 
     public OrderAggregate(){
     }

@@ -2,7 +2,7 @@ package com.hhf.axon.study.domain;
 
 import com.hhf.axon.study.domain.entity.OrderInfoEntity;
 import com.hhf.axon.study.domain.entity.OrderProductEntity;
-import com.hhf.axon.study.domain.event.CreateOrderEvent;
+import com.hhf.axon.study.command.event.CreateOrderEvent;
 import com.hhf.axon.study.domain.repository.OrderInfoRepository;
 import com.hhf.axon.study.domain.repository.OrderProductRepository;
 import org.axonframework.eventhandling.EventHandler;

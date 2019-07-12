@@ -3,7 +3,9 @@ package com.hhf.axon.study.infrastructrue.config;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
+import org.axonframework.eventhandling.saga.repository.SagaStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
+import org.axonframework.mongo.eventhandling.saga.repository.MongoSagaStore;
 import org.axonframework.mongo.eventsourcing.eventstore.DefaultMongoTemplate;
 import org.axonframework.mongo.eventsourcing.eventstore.MongoEventStorageEngine;
 import org.axonframework.mongo.eventsourcing.eventstore.MongoFactory;
@@ -37,6 +39,7 @@ public class RepositoryConfig {
     private String mongodbPassword;
     private final String domainEventsCollectionName="axonDomainEvents";
     private final String snapshotEventsCollectionName="axonSnapshotEvents";
+    private final String sagasCollectionName="axonSagas";
 
     @Bean
     public Serializer axonSerializer(){
@@ -60,4 +63,11 @@ public class RepositoryConfig {
         mongoFactory.setMongoAddresses(Arrays.asList(new ServerAddress(mongodbHost,mongodbPort)));
         return mongoFactory.createMongo();
     }
+
+    @Bean
+    public SagaStore sagaStore(){
+        org.axonframework.mongo.eventhandling.saga.repository.MongoTemplate mongoTemplate = new org.axonframework.mongo.eventhandling.saga.repository.DefaultMongoTemplate(mongoClient(), mongodbName, sagasCollectionName);
+        return new MongoSagaStore(mongoTemplate, axonSerializer());
+    }
+
 }

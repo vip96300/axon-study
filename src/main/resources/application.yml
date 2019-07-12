@@ -4,4 +4,4 @@ spring:
   application:
     name: axon-study
   profiles:
-    active: home
+    active: work

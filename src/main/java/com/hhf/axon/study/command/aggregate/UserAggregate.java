@@ -1,18 +1,13 @@
 package com.hhf.axon.study.command.aggregate;
 
-import com.hhf.axon.study.domain.event.CreateUserEvent;
-import com.hhf.axon.study.domain.event.UpdatePasswordEvent;
-import com.hhf.axon.study.command.CreateUserCommand;
+import com.hhf.axon.study.command.event.CreateUserEvent;
+import com.hhf.axon.study.command.event.UpdatePasswordEvent;
 import com.hhf.axon.study.command.UpdatePasswordCommand;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.spring.stereotype.Aggregate;
-
-import java.util.UUID;
 
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 

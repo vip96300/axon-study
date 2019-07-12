@@ -1,4 +1,4 @@
-package com.hhf.axon.study.domain.event;
+package com.hhf.axon.study.command.event;
 
 import com.hhf.axon.study.command.aggregate.OrderAggregate;
 import lombok.Builder;
